@@ -20,7 +20,7 @@ tar -xvzf 98AE96C6593FC9C52D1C46B96C2D9064291F4DBA625EF189FEC1CCAFCF4A1691.gz
 cd sh_qiime_release_04.02.2020
 ```
 
-4.  I found an odd character in this reference set that should be corrected.  In the sh_refs_qiime_ver8_dynamic_04.02.2020.fasta file, change the superscript x(?) character to a regular 'x' in the species field.  The lineage should look like this: k__Fungi;p__Ascomycota;c__Sordariomycetes;o__Hypocreales;f__Clavicipitaceae;g__Neotyphodium;s__Neotyphodium_xsiegelii
+4.  I found an odd character in this reference set that should be corrected.  In the sh_taxonomy_qiime_ver8_dynamic_04.02.2020.txt taxonomy file, change the superscript x(?) character to a regular 'x' in the species field.  The lineage should look like this: k__Fungi;p__Ascomycota;c__Sordariomycetes;o__Hypocreales;f__Clavicipitaceae;g__Neotyphodium;s__Neotyphodium_xsiegelii
 
 5. Dereplicate the sequences (to avoid overestimating accuracy during RDP classifier leave one out testing).  In this example, I am working with the dynamic sequence clusters (ranges from 0.5 - 3% divergence) and also contains singletons from the UNITE database.  The outfile contains only the unique sequences in unite_dynamic.fasta.
 
@@ -41,10 +41,17 @@ awk 'BEGIN {FS =" "}{print $2}' sh_taxonomy_qiime_ver8_dynamic_04.02.2020.txt | 
 perl messedup_fasta_to_strict_fasta.plx < unite_dynamic.fasta > unite_dynamic.fasta.strict 
 ```
 
-8. Now use the error-corrected dereplicated strict FASTA file and dynamic taxonomy file to create files that can be used to train the RDP classifier.
+8. Now use the dereplicated strict FASTA file and the error-corrected dynamic taxonomy file to create files that can be used to train the RDP classifier.  This creates two outfiles: 1) a sequence file called mytrainseq.fasta and 2) a taxonomy file called mytaxon.txt .
 
 ```linux
 perl qiime_unite_to_rdp.plx unite_dynamic.fasta.strict sh_taxonomy_qiime_ver8_dynamic_04.02.2020.txt
+```
+
+9. Now you can train the RDP classifier.
+
+```linux
+# rdp_classifier_v2.13
+java -Xmx25g -jar /home/terri/rdp_classifier_2.13/dist/classifier.jar train -o mytrained -s mytrainseq.fasta -t mytaxon.txt
 ```
 
 
