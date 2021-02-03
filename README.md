@@ -1,6 +1,6 @@
-# Method to update the fungal UNITE ITS reference database used with the RDP classifier
+# Update the fungal UNITE ITS reference database used with the RDP classifier
 
-The current stand-alone version of the RDP classifier v2.13 is available from https://sourceforge.net/projects/rdp-classifier/ .  Though the bacterial database has been updated, it is still using a very old version of the UNITE ITS reference database.  Here I'm providing the method I used to convert the QIIME-formatted UNITE files for use with the stand-alone version of the RDP classifier.  It has only been tested on the QIIME formatted UNITE release v8.2 available from https://unite.ut.ee/repository.php .  It is currently trained to the species-hypothesis level.  Leave one sequence out testing is currently in progress.
+The current stand-alone version of the RDP classifier v2.13 is available from https://sourceforge.net/projects/rdp-classifier/ .  Though the bacterial database has been updated, it is still using a very old version of the UNITE ITS reference database.  Here I'm providing the method I used to convert the QIIME-formatted UNITE files for use with the stand-alone version of the RDP classifier.  It has only been tested on the QIIME formatted UNITE release v8.2 available from https://unite.ut.ee/repository.php .  It is currently trained to the species-hypothesis level.  Leave one sequence out testing is currently in progress.  My method is Perl-based but if you prefer a python-based solution check here: https://john-quensen.com/tutorials/training-the-rdp-classifier/ .
 
 1. Obtain QIIME-formatted UNITE files v8.2 from https://files.plutof.ut.ee/public/orig/98/AE/98AE96C6593FC9C52D1C46B96C2D9064291F4DBA625EF189FEC1CCAFCF4A1691.gz
 
@@ -20,28 +20,28 @@ tar -xvzf 98AE96C6593FC9C52D1C46B96C2D9064291F4DBA625EF189FEC1CCAFCF4A1691.gz
 cd sh_qiime_release_04.02.2020
 ```
 
-4.  I found an odd character in this reference set that should be corrected.  In the sh_taxonomy_qiime_ver8_dynamic_04.02.2020.txt taxonomy file, change the superscript x(?) character to a regular 'x' in the species field.  The lineage should look like this: k__Fungi;p__Ascomycota;c__Sordariomycetes;o__Hypocreales;f__Clavicipitaceae;g__Neotyphodium;s__Neotyphodium_xsiegelii
+4.  I found an odd character in this reference set that should be corrected.  In the sh_taxonomy_qiime_ver8_dynamic_04.02.2020.txt taxonomy file, change the superscript x(?) character to a regular 'x' in the species field.  The lineage for SH1644897.08FU_KC881085_refs should look like this: k__Fungi;p__Ascomycota;c__Sordariomycetes;o__Hypocreales;f__Clavicipitaceae;g__Neotyphodium;s__Neotyphodium_xsiegelii
 
-5. Dereplicate the sequences (to avoid overestimating accuracy during RDP classifier leave one out testing).  In this example, I am working with the dynamic sequence clusters (ranges from 0.5 - 3% divergence) and also contains singletons from the UNITE database.  The outfile contains only the unique sequences in unite_dynamic.fasta.
+5. Dereplicate the sequences (to avoid overestimating accuracy during RDP classifier leave one out testing).  In this example, I am working with the dynamic sequence clusters (ranges from 0.5 - 3% divergence) that also contain singletons from the UNITE ITS database.  The outfile contains only the unique sequences in unite_dynamic.fasta.
 
 ```linux
 # vsearch v2.14.1
 vsearch --derep_fulllength sh_refs_qiime_ver8_dynamic_04.02.2020.fasta --output unite_dynamic.fasta
 ```
 
-6.  Check if there are any non-fungal outgroups (running this step is optional).  I grab the kingdom field of the taxonomic lineage to see if there are any nonbn-fungal groups present.  I did not find any non-fungal groups using this method, so no there doesn't appear to be any non-fungal outgroups present in this version of the database.
+6.  Check if there are any non-fungal outgroups (running this step is optional).  I grab the kingdom field of the taxonomic lineage to see if there are any non-fungal groups present.  I did not find any non-fungal groups using this method, so no there doesn't appear to be any non-fungal outgroups present in this version of the database.
 
 ```linux
 awk 'BEGIN {FS =" "}{print $2}' sh_taxonomy_qiime_ver8_dynamic_04.02.2020.txt | awk 'BEGIN{FS=";"}{print $1}' | sort -u
 ```
 
-7. Convert the fasta file from VSEARCH into a strictly-formatted FASTA file (one header one, followed by one sequence line, no sequence wrapping accross multiple lines).
+7. Convert the fasta file from VSEARCH into a strictly-formatted FASTA file (one header line, followed by one sequence line, no sequence wrapping accross multiple lines).
 
 ```linux
 perl messedup_fasta_to_strict_fasta.plx < unite_dynamic.fasta > unite_dynamic.fasta.strict 
 ```
 
-8. Now use the dereplicated strict FASTA file and the error-corrected dynamic taxonomy file to create files that can be used to train the RDP classifier.  This creates two outfiles: 1) a sequence file called mytrainseq.fasta and 2) a taxonomy file called mytaxon.txt .
+8. Now use the dereplicated strict FASTA file and the error-corrected dynamic taxonomy file to create files that can be used to train the RDP classifier.  This script handles unidentified taxa, ex. if the genus is labelled 'g_unidentified', the family name 'f__Cystostereaceae' will be added as a prefix, the result is the genus name 'f__Cystostereaceae_g__unidentified'.  It also handles non-unique taxa, ex. if the same genus name is found in more than one family, using the same method, ex. g_Cryptococcus can be found in f_Tremellaceae and f_Cryptococcaceae, the result is a genus name of 'f__Tremellaceae_g__Cryptococcus' or 'f__Cryptococcaceae_g__Cryptococcus'.  This can lead to very long strings of concatenated taxon names, but this was done to ensure the taxonomy is strictly hierarchical.  This creates two outfiles: 1) a sequence file called mytrainseq.fasta and 2) a taxonomy file called mytaxon.txt .  
 
 ```linux
 perl qiime_unite_to_rdp.plx unite_dynamic.fasta.strict sh_taxonomy_qiime_ver8_dynamic_04.02.2020.txt
@@ -51,11 +51,30 @@ perl qiime_unite_to_rdp.plx unite_dynamic.fasta.strict sh_taxonomy_qiime_ver8_dy
 
 ```linux
 # rdp_classifier_v2.13
-java -Xmx25g -jar /home/terri/rdp_classifier_2.13/dist/classifier.jar train -o mytrained -s mytrainseq.fasta -t mytaxon.txt
+java -Xmx25g -jar /path/to/rdp_classifier_2.13/dist/classifier.jar train -o mytrained -s mytrainseq.fasta -t mytaxon.txt
 ```
 
+10.  Add the rRNA properties file (taken from rdp_classifier_v2.13) (not optional).  I like to edit this file to reflect the currently used RDP classifier version and date (optional).
 
+```linux
+cd mytrained
+cp /path/to/rdp_classifier_2.13/src/data/classifier/16srrna/rRNAClassifier.properties . 
+cd ..
+```
 
+11.  Now you can test the classifier with a small 10-sequence set.
+
+```linux
+head -20 unite_dynamic.fasta.strict > test.fasta
+java -Xmx25g -jar /path/to/rdp_classifier_2.13/dist/classifier.jar classify -t mytrained/rRNAClassifier.properties -o test_classified.txt test.fasta 
+```
+
+12.  Now you can assess the accuracy of the classifier for different query sequence lengths at various bootstrap support cutoffs.  This step is slow and memory intensive, especially towards the end.  May need to adjust the memory used for this step, i.e., -Xmx25g (will use up to 25gb memory). 
+
+```linux
+# leave one sequence out analysis
+java -Xmx25g -jar  /home/terri/rdp_classifier_2.13/dist/classifier.jar loot -q mytrainseq.fasta -s mytrainseq.fasta -t mytaxon.txt -l 200 -o test_200_loso_test.txt
+```
 
 # References
 
