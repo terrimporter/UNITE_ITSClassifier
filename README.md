@@ -154,8 +154,14 @@ The v1 release can be downloaded from https://github.com/terrimporter/UNITE_ITSC
 Assuming that your query sequences are present in the reference set, using these cutoffs should result in ~80% correct assignments:  
 
 Rank | 200 bp  
-:--- | ---  
+:--- | :---:  
 Kingdom | 0  
+Phylum | 0  
+Class | 0 
+Order | 0
+Family | 0
+Genus | 0  
+Species Hypothesis | 0  
 
 
 
