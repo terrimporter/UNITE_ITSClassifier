@@ -4,7 +4,7 @@ The current stand-alone version of the RDP classifier v2.13 is available from ht
 
 The UNITE v8.2 training files and trained files ready for use with the RDP classifier are available here.
 
-This method is Perl-based and tries to handle problems in an automate manner.  If you prefer a python-based solution check here: https://john-quensen.com/tutorials/training-the-rdp-classifier/ .
+This method is Perl-based.  If you prefer a python-based solution check here: https://john-quensen.com/tutorials/training-the-rdp-classifier/ .
 
 ## Overview
 
