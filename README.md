@@ -151,7 +151,8 @@ This version is based on the UNITE ITS v8.2 reference set available from https:/
 
 The v1 release can be downloaded from https://github.com/terrimporter/UNITE_ITSClassifier/releases/tag/v1.0 .  These files are ready to be used with the RDP classifier and were tested using v2.13.  The original files used to train the classifier v1-ref can be downloaded from https://github.com/terrimporter/UNITE_ITSClassifier/releases/tag/v1.0-ref and include a FASTA sequence file and taxonomy file.  
 
-Assuming that your query sequences are present in the reference set, using these cutoffs should result in ~80% correct assignments:
+Assuming that your query sequences are present in the reference set, using these cutoffs should result in ~80% correct assignments:  
+
 
 | Rank | Full length ITS IPR | 300 bp IPR | 200 bp |  
 | :--- | :---: | :---: | :---: | :---: | :---: |  
@@ -162,6 +163,7 @@ Assuming that your query sequences are present in the reference set, using these
 | Family | 0 | 0 | 0.1 |  
 | Genus | 0 | 0 | 0.7 |  
 | Species Hypothesis | 0 | 0 | 0.95 |  
+
 
 NA = No cutoff available will result in 80% correct assignments
 IPR = Leave one sequence out testing in progress
