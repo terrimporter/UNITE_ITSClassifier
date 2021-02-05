@@ -11,6 +11,7 @@ This method is Perl-based.  If you prefer a python-based solution check here: ht
 [Get UNITE data and prepare it](#Get-UNITE-data-and-prepare-it)   
 [Get outgroup data and add it to the most recent UNITE data](#Get-outgroup-data-and-add-it-to-the-most-recent-UNITE-data)   
 [Train and test the RDP Classifier](#Train-and-test-the-RDP-Classifier)    
+[Releases](#Releases)  
 
 ## Get UNITE data and prepare it
 
@@ -145,7 +146,7 @@ java -Xmx25g -jar  /path/to/rdp_classifier_2.13/dist/classifier.jar loot -q mytr
 
 ## Releases
 
-v1 
+### v1 
 
 This version is based on the UNITE ITS v8.2 reference set available from https://unite.ut.ee/repository.php (Feb. 20, 2020).  Sequences were dereplicated to avoid inflating accuracy during leave one out testing.  Some taxa were edited to manage unknown and non-unique taxa to ensure a strictly hierarchical taxonomy using NCBI taxonomy as a guide.  Microsporidian outgroup taxa from a 2014 UNITE reference set created for the RDP classifier were added to this set as well.
 
