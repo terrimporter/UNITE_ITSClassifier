@@ -163,21 +163,7 @@ Family | 0
 Genus | 0  
 Species Hypothesis | 0  
 
-
-
-Rank | Full length ITS IPR | 300 bp IPR | 200 bp  
-:--- | :---: | :---: | :---: | :---: | :---:  
-Kingdom | 0 | 0 | 0  
-Phylum | 0 | 0 | 0   
-Class | 0 | 0 | 0   
-Order | 0 | 0 | 0    
-Family | 0 | 0 | 0.1   
-Genus | 0 | 0 | 0.7   
-Species Hypothesis | 0 | 0 | 0.95  
-
-
 NA = No cutoff available will result in 80% correct assignments
-IPR = Leave one sequence out testing in progress
 
 
 # References
