@@ -1,4 +1,4 @@
-# Update the fungal UNITE ITS reference database used with the RDP classifier
+# UNITE ITS reference for the RDP Classifier
 
 The current stand-alone version of the RDP classifier v2.13 is available from https://sourceforge.net/projects/rdp-classifier/ .  Though the bacterial database has been updated, it is still using a 2014 version of the UNITE ITS reference database.  Here provide the method I used to convert the QIIME-formatted UNITE files for use with the stand-alone version of the RDP classifier.  It has only been tested on the QIIME formatted UNITE release v8.2 available from https://unite.ut.ee/repository.php .  It is currently trained to the species-hypothesis level.  I have also added the same microsporidian outgroup sequences from the 2014 UNITE reference set availabe from sourceforge at http://sourceforge.net/projects/rdp-classifier/files/RDP_Classifier_TrainingData/fungalits_UNITE_trainingdata_07042014.zip/download . Leave one sequence out testing is currently in progress. 
 
