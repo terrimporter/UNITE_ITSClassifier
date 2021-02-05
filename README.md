@@ -6,6 +6,12 @@ The UNITE v8.2 training files and trained files ready for use with the RDP class
 
 This method is Perl-based and tries to handle problems in an automate manner.  If you prefer a python-based solution check here: https://john-quensen.com/tutorials/training-the-rdp-classifier/ .
 
+## Overview
+
+[Get UNITE data and prepare it](#Get-UNITE-data-and-prepare-it)   
+[Get outgroup data and add it to the most recent UNITE data](#Get-outgroup-data-and-add-it-to-the-most-recent-UNITE-data)   
+[Train and test the RDP Classifier](#Train-and-test-the-RDP-Classifier)    
+
 ## Get UNITE data and prepare it
 
 1. Obtain QIIME-formatted UNITE files v8.2 from https://files.plutof.ut.ee/public/orig/98/AE/98AE96C6593FC9C52D1C46B96C2D9064291F4DBA625EF189FEC1CCAFCF4A1691.gz
