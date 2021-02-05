@@ -143,6 +143,30 @@ java -Xmx25g -jar /path/to/rdp_classifier_2.13/dist/classifier.jar classify -t m
 java -Xmx25g -jar  /path/to/rdp_classifier_2.13/dist/classifier.jar loot -q mytrainseq.fasta -s mytrainseq.fasta -t mytaxon.txt -l 200 -o test_200_loso_test.txt
 ```
 
+## Releases
+
+v1 
+
+This version is based on the UNITE ITS v8.2 reference set available from https://unite.ut.ee/repository.php (Feb. 20, 2020).  Sequences were dereplicated to avoid inflating accuracy during leave one out testing.  Some taxa were edited to manage unknown and non-unique taxa to ensure a strictly hierarchical taxonomy using NCBI taxonomy as a guide.  Microsporidian outgroup taxa from a 2014 UNITE reference set created for the RDP classifier were added to this set as well.
+
+The v1 release can be downloaded from https://github.com/terrimporter/UNITE_ITSClassifier/releases/tag/v1.0 .  These files are ready to be used with the RDP classifier and were tested using v2.13.  The original files used to train the classifier v1-ref can be downloaded from https://github.com/terrimporter/UNITE_ITSClassifier/releases/tag/v1.0-ref and include a FASTA sequence file and taxonomy file.  
+
+Assuming that your query sequences are present in the reference set, using these cutoffs should result in ~80% correct assignments:
+
+Rank | Full length ITS (IPR) | 300 bp (IPR) | 200 bp
+--- |:---:|:---:|:---:|:---:|:---:  
+Kingdom | 0 | 0 | 0  
+Phylum | 0 | 0 | 0   
+Class | 0 | 0 | 0  
+Order | 0 | 0 | 0  
+Family | 0 | 0 | 0.1  
+Genus | 0 | 0 | 0.7  
+Species Hypothesis | 0 | 0 | 0.95   
+
+NA = No cutoff available will result in 80% correct assignments
+IPR = Leave one sequence out testing in progress
+
+
 # References
 
 Abarenkov, Kessy; Zirk, Allan; Piirmann, Timo; Pöhönen, Raivo; Ivanov, Filipp; Nilsson, R. Henrik; Kõljalg, Urmas (2020): UNITE QIIME release for Fungi. Version 04.02.2020. UNITE Community. https://doi.org/10.15156/BIO/786385
