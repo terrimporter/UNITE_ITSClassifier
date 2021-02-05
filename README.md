@@ -95,7 +95,7 @@ cat unite_dynamic.fasta.strict fungalits_UNITE_trainingdata_07042014/nonfungi.fa
 cat sh_taxonomy_qiime_ver8_dynamic_04.02.2020.txt fungalits_UNITE_trainingdata_07042014/nonfungi.tax > unite_outgroup.txt
 ```
 
-6. The combined taxonomy file needs to be edited to resolve the taxonomic placement of non-unique taxa.  I.e., whebn the same genus name is found in two different families.  The NCBI taxonomy database was used to set the taxonomic lineage for such non-unique taxa.
+6. The combined taxonomy file needs to be edited to resolve the taxonomic placement of non-unique taxa.  I.e., when the same genus name is found in two different families.  The NCBI taxonomy database was used to set the taxonomic lineage for such non-unique taxa.
 
 ```linux
 vi -c '1,$s/f__Tremellaceae;g__Cryptococcus;/f__Cryptococcaceae;g__Cryptococcus;/' -c 'wq' unite_outgroup.txt
@@ -151,4 +151,4 @@ Nilsson RH, Larsson K-H, Taylor AFS, Bengtsson-Palme J, Jeppesen TS, Schigel D, 
 
 Wang, Q., Garrity, G. M., Tiedje, J. M., & Cole, J. R. (2007). Naive Bayesian Classifier for Rapid Assignment of rRNA Sequences into the New Bacterial Taxonomy. Applied and Environmental Microbiology, 73(16), 5261–5267. Available from https://sourceforge.net/projects/rdp-classifier/
 
-Last updated: February 3, 2021
+Last updated: February 4, 2021
