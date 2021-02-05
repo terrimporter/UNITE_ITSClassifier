@@ -160,9 +160,9 @@ Kingdom | 0
 Phylum | 0  
 Class | 0 
 Order | 0
-Family | 0
-Genus | 0  
-Species Hypothesis | 0  
+Family | 0.1
+Genus | 0.7  
+Species Hypothesis | 0.95  
 
 NA = No cutoff available will result in 80% correct assignments
 
