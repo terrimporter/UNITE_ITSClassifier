@@ -140,7 +140,7 @@ java -Xmx25g -jar /path/to/rdp_classifier_2.13/dist/classifier.jar classify -t m
 
 ```linux
 # leave one sequence out analysis
-java -Xmx25g -jar  /home/terri/rdp_classifier_2.13/dist/classifier.jar loot -q mytrainseq.fasta -s mytrainseq.fasta -t mytaxon.txt -l 200 -o test_200_loso_test.txt
+java -Xmx25g -jar  /path/to/rdp_classifier_2.13/dist/classifier.jar loot -q mytrainseq.fasta -s mytrainseq.fasta -t mytaxon.txt -l 200 -o test_200_loso_test.txt
 ```
 
 # References
