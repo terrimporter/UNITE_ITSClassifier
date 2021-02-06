@@ -185,7 +185,7 @@ java -Xmx25g -jar  /path/to/rdp_classifier_2.13/dist/classifier.jar loot -q mytr
 
 ## Releases
 
-### v2
+### v1.1
 
 Added a small subset of plant outgroup taxa from PLANiTS ( full plant reference set available from https://github.com/apallavicini/PLANiTS ).
 
