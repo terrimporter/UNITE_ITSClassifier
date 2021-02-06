@@ -189,6 +189,8 @@ java -Xmx25g -jar  /path/to/rdp_classifier_2.13/dist/classifier.jar loot -q mytr
 
 Added a small subset of plant outgroup taxa from PLANiTS ( full plant reference set available from https://github.com/apallavicini/PLANiTS ).
 
+Assuming that your query sequences are present in the reference set, using these bootstrap support cutoffs should result in at least 80% correct assignments:  
+
 Rank | 200 bp  
 :--- | :---:  
 Kingdom | 0  
@@ -206,8 +208,6 @@ NA = No cutoff available will result in 80% correct assignments
 This version is based on the UNITE ITS v8.2 reference set available from https://unite.ut.ee/repository.php (Feb. 20, 2020).  Sequences were dereplicated to avoid inflating accuracy during leave one out testing.  Some taxa were edited to manage unknown and non-unique taxa to ensure a strictly hierarchical taxonomy using NCBI taxonomy as a guide.  Microsporidian outgroup taxa from a 2014 UNITE reference set created for the RDP classifier were added to this set as well.
 
 The v1 release can be downloaded from https://github.com/terrimporter/UNITE_ITSClassifier/releases/tag/v1.0 .  These files are ready to be used with the RDP classifier and were tested using v2.13.  The original files used to train the classifier v1-ref can be downloaded from https://github.com/terrimporter/UNITE_ITSClassifier/releases/tag/v1.0-ref and include a FASTA sequence file and taxonomy file.  
-
-Assuming that your query sequences are present in the reference set, using these bootstrap support cutoffs should result in at least 80% correct assignments:  
 
 # References
 
