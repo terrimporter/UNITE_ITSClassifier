@@ -1,8 +1,8 @@
-# Update the fungal UNITE ITS reference database used with the RDP classifier
+# UNITE ITS reference set for the RDP Classifier
 
-The current stand-alone version of the RDP classifier v2.13 is available from https://sourceforge.net/projects/rdp-classifier/ .  Though the bacterial database has been updated, it is still using a 2014 version of the UNITE ITS reference database.  Here provide the method I used to convert the QIIME-formatted UNITE files for use with the stand-alone version of the RDP classifier.  It has only been tested on the QIIME formatted UNITE release v8.2 available from https://unite.ut.ee/repository.php .  It is currently trained to the species-hypothesis level.  I have also added the same microsporidian outgroup sequences from the 2014 UNITE reference set availabe from sourceforge at http://sourceforge.net/projects/rdp-classifier/files/RDP_Classifier_TrainingData/fungalits_UNITE_trainingdata_07042014.zip/download . Leave one sequence out testing is currently in progress. 
+The current stand-alone version of the RDP classifier v2.13 is available from https://sourceforge.net/projects/rdp-classifier/ .  Though the bacterial database has been updated, it is still using a 2014 version of the UNITE ITS reference database.  Here is the method I used to convert the QIIME-formatted UNITE files for use with the stand-alone version of the RDP classifier.  It has only been tested on the QIIME formatted UNITE release v8.2 available from https://unite.ut.ee/repository.php .  It is currently trained to the species-hypothesis level.  I have also added the same microsporidian outgroup sequences from the 2014 UNITE reference set availabe from sourceforge at http://sourceforge.net/projects/rdp-classifier/files/RDP_Classifier_TrainingData/fungalits_UNITE_trainingdata_07042014.zip/download . I also added plant outgroup sequences from PLANiTS available from https://github.com/apallavicini/PLANiTS.  Leave one sequence out testing is currently in progress. 
 
-The UNITE v8.2 training files and trained files ready for use with the RDP classifier are available here.
+The UNITE v8.2 training files and trained files ready for use with the RDP classifier are available at https://github.com/terrimporter/QIIME_formatted_UNITE_ITS_to_RDPclassifier/releases .
 
 This method is Perl-based.  If you prefer a python-based solution check here: https://john-quensen.com/tutorials/training-the-rdp-classifier/ .
 
@@ -11,6 +11,7 @@ This method is Perl-based.  If you prefer a python-based solution check here: ht
 [Get UNITE data and prepare it](#Get-UNITE-data-and-prepare-it)   
 [Get outgroup data and add it to the most recent UNITE data](#Get-outgroup-data-and-add-it-to-the-most-recent-UNITE-data)   
 [Train and test the RDP Classifier](#Train-and-test-the-RDP-Classifier)    
+[Releases](#Releases)  
 
 ## Get UNITE data and prepare it
 
@@ -106,10 +107,49 @@ vi -c '1,$s/f__unidentified;g__Brevicollum;/f__Neohendersoniaceae;g__Brevicollum
 vi -c '1,$s/f__Nectriaceae;g__Cylindrium;/f__Hypocreales_fam_Incertae_sedis;g__Cylindrium;/' -c 'wq' unite_outgroup.txt
 ```
 
-7. Now we can convert the QIIME-formatted sequence and taxonomy files to the format needed for the RDP classifier.  This script handles unidentified taxa, ex. if the genus is labelled 'g_unidentified', the family name 'f__Cystostereaceae' will be added as a prefix, the result is the genus name 'f__Cystostereaceae_g__unidentified'.  This can lead to very long strings of concatenated taxon names, but this was done to ensure the taxonomy is strictly hierarchical.  This creates two outfiles: 1) a sequence file called mytrainseq.fasta and 2) a taxonomy file called mytaxon.txt .  
+7. Obtain plant ITS sequences from PLANiTS from https://github.com/apallavicini/PLANiTS , decompress it, and enter the directory.
+
+8. Dereplicate the plant ITS sequences.
 
 ```linux
-perl qiime_unite_to_rdp2.plx unite_outgroup.fasta unite_outgroup.txt
+# vsearch v2.14.1
+vsearch --derep_fulllength PLANiTS_ITS.fasta --output PLANiTS_ITS.fasta.derep
+```
+
+9. Cluster the QIIME formatted plant ITS sequences so reduce the dataset and grab a few representative sequences to use as an outgroup.
+
+```linux
+vsearch --cluster_fast PLANiTS_ITS.fasta.derep --centroids PLANiTS_ITS.fasta.derep.centroids --id 0.50
+```
+
+10. Convert the vsearch output to a strict FASTA format.
+
+```linux
+perl messedup_fasta_to_strict_fasta.plx < PLANiTS_ITS.fasta.derep.centroids > PLANiTS_ITS.fasta.derep.centroids.fasta
+```
+
+11. Reformat the QIIME formatted plant ITS taxonomy for use with the RDP classifier.
+
+```linux
+perl grab_tax_for_each_acc.plx PLANiTS_ITS.fasta.derep.centroids.fasta PLANiTS_ITS_taxonomy
+```
+
+12. Combine the UNITE+microsporidian outgroup sequencs with the plant sequencs.
+
+```linux
+cat unite_outgroup.fasta PLANiTS_ITS.fasta.derep.centroids.fasta > unite_PLANiTS_outgroups.fasta
+```
+
+13. Combine the UNITE+microsporidian outgroup taxonomy with the plant taxonomy.
+
+```linux
+cat unite_outgroup.txt PLANiTS_ITS_taxonomy2 > unite_PLANiTS_outgroups.txt
+```
+
+14. Now we can convert the QIIME-formatted sequence and taxonomy files to the format needed for the RDP classifier.  This script handles unidentified taxa, ex. if the genus is labelled 'g_unidentified', the family name 'f__Cystostereaceae' will be added as a prefix, the result is the genus name 'f__Cystostereaceae_g__unidentified'.  This can lead to very long strings of concatenated taxon names, but this was done to ensure the taxonomy is strictly hierarchical.  This creates two outfiles: 1) a sequence file called mytrainseq.fasta and 2) a taxonomy file called mytaxon.txt .  
+
+```linux
+perl qiime_unite_to_rdp2.plx unite_PLANiTS_outgroups.fasta unite_PLANiTS_outgroups.txt
 ```
 
 ## Train and test the RDP Classifier
@@ -140,15 +180,43 @@ java -Xmx25g -jar /path/to/rdp_classifier_2.13/dist/classifier.jar classify -t m
 
 ```linux
 # leave one sequence out analysis
-java -Xmx25g -jar  /home/terri/rdp_classifier_2.13/dist/classifier.jar loot -q mytrainseq.fasta -s mytrainseq.fasta -t mytaxon.txt -l 200 -o test_200_loso_test.txt
+java -Xmx25g -jar  /path/to/rdp_classifier_2.13/dist/classifier.jar loot -q mytrainseq.fasta -s mytrainseq.fasta -t mytaxon.txt -l 200 -o test_200_loso_test.txt
 ```
+
+## Releases
+
+### v1.1
+
+Added a small subset of plant outgroup taxa from PLANiTS ( full plant reference set available from https://github.com/apallavicini/PLANiTS ).
+
+Rank | 200 bp  
+:--- | :---:  
+Kingdom | 0  
+Phylum | 0  
+Class | 0 
+Order | 0
+Family | 0.1
+Genus | 0.7  
+Species Hypothesis | 0.95  
+
+NA = No cutoff available will result in 80% correct assignments
+
+### v1 
+
+This version is based on the UNITE ITS v8.2 reference set available from https://unite.ut.ee/repository.php (Feb. 20, 2020).  Sequences were dereplicated to avoid inflating accuracy during leave one out testing.  Some taxa were edited to manage unknown and non-unique taxa to ensure a strictly hierarchical taxonomy using NCBI taxonomy as a guide.  Microsporidian outgroup taxa from a 2014 UNITE reference set created for the RDP classifier were added to this set as well.
+
+The v1 release can be downloaded from https://github.com/terrimporter/UNITE_ITSClassifier/releases/tag/v1.0 .  These files are ready to be used with the RDP classifier and were tested using v2.13.  The original files used to train the classifier v1-ref can be downloaded from https://github.com/terrimporter/UNITE_ITSClassifier/releases/tag/v1.0-ref and include a FASTA sequence file and taxonomy file.  
+
+Assuming that your query sequences are present in the reference set, using these bootstrap support cutoffs should result in at least 80% correct assignments:  
 
 # References
 
 Abarenkov, Kessy; Zirk, Allan; Piirmann, Timo; Pöhönen, Raivo; Ivanov, Filipp; Nilsson, R. Henrik; Kõljalg, Urmas (2020): UNITE QIIME release for Fungi. Version 04.02.2020. UNITE Community. https://doi.org/10.15156/BIO/786385
 
+Banchi, E.; Ametrano, C.G.; Greco, S.; Stanković, D.; Muggia, L.; Pallavicini, A. PLANiTS: a curated sequence reference dataset for plant ITS DNA metabarcoding. Database 2020, 2020.
+
 Nilsson RH, Larsson K-H, Taylor AFS, Bengtsson-Palme J, Jeppesen TS, Schigel D, Kennedy P, Picard K, Glöckner FO, Tedersoo L, Saar I, Kõljalg U, Abarenkov K. 2018. The UNITE database for molecular identification of fungi: handling dark taxa and parallel taxonomic classifications. Nucleic Acids Research, DOI: 10.1093/nar/gky1022
 
 Wang, Q., Garrity, G. M., Tiedje, J. M., & Cole, J. R. (2007). Naive Bayesian Classifier for Rapid Assignment of rRNA Sequences into the New Bacterial Taxonomy. Applied and Environmental Microbiology, 73(16), 5261–5267. Available from https://sourceforge.net/projects/rdp-classifier/
 
-Last updated: February 4, 2021
+Last updated: February 6, 2021
