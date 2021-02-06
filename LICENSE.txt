@@ -1,4 +1,4 @@
-QIIME_formatted_UNITE_ITS_to_RDPclassifier (c) by Teresita M. Porter
+UNITE_ITSClassifier (c) by Teresita M. Porter
 
 Dataflow and scripts are licensed under a
 Creative Commons Attribution 4.0 International License.
