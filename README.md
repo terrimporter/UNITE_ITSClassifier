@@ -191,15 +191,15 @@ Added a small subset of plant outgroup taxa from PLANiTS ( full plant reference 
 
 Assuming that your query sequences are present in the reference set, using these bootstrap support cutoffs should result in at least 80% correct assignments:  
 
-Rank | 200 bp  
-:--- | :---:  
-Kingdom | 0  
-Phylum | 0  
-Class | 0 
-Order | 0
-Family | 0.1
-Genus | 0.7  
-Species Hypothesis | 0.95  
+Rank | 200 bp | 300 bp  
+:--- | :---: | :---:  
+Kingdom | 0 | 0  
+Phylum | 0 | 0  
+Class | 0 | 0  
+Order | 0 | 0  
+Family | 0.1 | 0  
+Genus | 0.7 | 0.7    
+Species Hypothesis | NA | 0.6
 
 NA = No cutoff available will result in 80% correct assignments
 
