@@ -8,10 +8,27 @@ This method is Perl-based.  If you prefer a python-based solution check here: ht
 
 ## Overview
 
+[How to classify your sequences](#How-to-classify-your-sequences)  
 [Get UNITE data and prepare it](#Get-UNITE-data-and-prepare-it)   
 [Get outgroup data and add it to the most recent UNITE data](#Get-outgroup-data-and-add-it-to-the-most-recent-UNITE-data)   
 [Train and test the RDP Classifier](#Train-and-test-the-RDP-Classifier)    
 [Releases](#Releases)  
+
+## How to classify your sequences
+
+Download the latest version of the RDP-formatted UNITE fungal ITS reference set and decompress it.
+
+```linux
+wget https://github.com/terrimporter/UNITE_ITSClassifier/releases/download/v1.1/UNITEv8.2.tar.gz
+tar -xvzf UNITEv8.2.tar.gz
+```
+
+Run the RDP Classifier.
+
+```linux
+java -Xmx25g -jar /path/to/rdp_classifier_2.13/dist/classifier.jar classify -t PLANiTSv032920_v1.1/rRNAClassifier.properties -o outfile.txt query.fasta 
+```
+And that's it! The following steps are only needed if you are interested in the steps I took to reform QIIME formatted files for use with the RDP classifier. You can also check under the 'Releases' section to see what bootstrap support cutoffs are ideal given your average query length.
 
 ## Get UNITE data and prepare it
 
