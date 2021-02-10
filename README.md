@@ -26,7 +26,7 @@ tar -xvzf UNITEv8.2.tar.gz
 Run the RDP Classifier.
 
 ```linux
-java -Xmx25g -jar /path/to/rdp_classifier_2.13/dist/classifier.jar classify -t PLANiTSv032920_v1.1/rRNAClassifier.properties -o outfile.txt query.fasta 
+java -Xmx25g -jar /path/to/rdp_classifier_2.13/dist/classifier.jar classify -t UNITEv8.2/rRNAClassifier.properties -o outfile.txt query.fasta 
 ```
 And that's it! The following steps are only needed if you are interested in the steps I took to reform QIIME formatted files for use with the RDP classifier. You can also check under the 'Releases' section to see what bootstrap support cutoffs are ideal given your average query length.
 
