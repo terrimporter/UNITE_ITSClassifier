@@ -28,7 +28,7 @@ Run the RDP Classifier.
 ```linux
 java -Xmx25g -jar /path/to/rdp_classifier_2.13/dist/classifier.jar classify -t UNITEv8.2/rRNAClassifier.properties -o outfile.txt query.fasta 
 ```
-And that's it! The following steps are only needed if you are interested in the steps I took to reform QIIME formatted files for use with the RDP classifier. You can also check under the 'Releases' section to see what bootstrap support cutoffs are ideal given your average query length.
+And that's it! The following steps are only needed if you are interested in the steps I took to reform QIIME formatted files for use with the RDP classifier. You can also check under the [Releases](#Releases) section to see what bootstrap support cutoffs are ideal given your average query length.
 
 ## Get UNITE data and prepare it
 
@@ -236,4 +236,4 @@ Nilsson RH, Larsson K-H, Taylor AFS, Bengtsson-Palme J, Jeppesen TS, Schigel D, 
 
 Wang, Q., Garrity, G. M., Tiedje, J. M., & Cole, J. R. (2007). Naive Bayesian Classifier for Rapid Assignment of rRNA Sequences into the New Bacterial Taxonomy. Applied and Environmental Microbiology, 73(16), 5261–5267. Available from https://sourceforge.net/projects/rdp-classifier/
 
-Last updated: February 6, 2021
+Last updated: February 10, 2021
