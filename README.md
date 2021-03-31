@@ -26,11 +26,11 @@ wget https://sourceforge.net/projects/rdp-classifier/files/rdp-classifier/rdp_cl
 unzip rdp_classifier_2.13
 # record path to classifier.jar ex. /path/to/rdp_classifier_2.13/dist/classifier.jar
 
-############ Get the latest COI training set
-wget https://github.com/terrimporter/CO1Classifier/releases/download/v4/CO1v4_trained.tar.gz
+############ Get the latest UNITE training set
+wget https://github.com/terrimporter/UNITE_ITSClassifier/releases/download/v1.1/UNITEv8.2.tar.gz
 
 # decompress it
-tar -xzf CO1v4_trained.tar.gz
+tar -xzf UNITEv8.2.tar.gz
 
 # record the path to the rRNAClassifier.properties file ex. /path/to/mydata_trained/rRNAClassifier.properties
 
