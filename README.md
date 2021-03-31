@@ -8,29 +8,42 @@ This method is Perl-based.  If you prefer a python-based solution check here: ht
 
 ## Overview
 
-[How to classify your sequences](#How-to-classify-your-sequences)  
+[Quick Start](#Quick-Start)  
 [Get UNITE data and prepare it](#Get-UNITE-data-and-prepare-it)   
 [Get outgroup data and add it to the most recent UNITE data](#Get-outgroup-data-and-add-it-to-the-most-recent-UNITE-data)   
 [Train and test the RDP Classifier](#Train-and-test-the-RDP-Classifier)    
 [Releases](#Releases)  
 
-## How to classify your sequences
-
-Download the latest version of the RDP-formatted UNITE fungal ITS reference set and decompress it.
+## Quick Start
 
 ```linux
-wget https://github.com/terrimporter/UNITE_ITSClassifier/releases/download/v1.1/UNITEv8.2.tar.gz
-tar -xvzf UNITEv8.2.tar.gz
+############ Install the RDP classifier if you need it
+# The easiest way to install the RDP classifier v2.13 is using conda
+conda install -c bioconda rdp_classifier
+# Alternatively, you can install from SourceForge and run with java if you don't use conda
+wget https://sourceforge.net/projects/rdp-classifier/files/rdp-classifier/rdp_classifier_2.13.zip
+# decompress it
+unzip rdp_classifier_2.13
+# record path to classifier.jar ex. /path/to/rdp_classifier_2.13/dist/classifier.jar
+
+############ Get the latest COI training set
+wget https://github.com/terrimporter/CO1Classifier/releases/download/v4/CO1v4_trained.tar.gz
+
+# decompress it
+tar -xzf CO1v4_trained.tar.gz
+
+# record the path to the rRNAClassifier.properties file ex. /path/to/mydata_trained/rRNAClassifier.properties
+
+############ Run the RDP Classifier 
+# If it was installed using conda, run it like this:
+rdp_classifier -Xmx8g classify -t /path/to/mydata_trained/rRNAClassifier.properties -o rdp.output query.fasta
+# Otherwise run it using java like this:
+java -Xmx8g -jar /path/to/rdp_classifier_2.13/classifier.jar -t /path/to/mydata_trained/rRNAClassifier.properties -o rdp.output query.fasta
 ```
 
-Run the RDP Classifier.
+**The following steps are only needed if you are interested in the steps I took to reform QIIME formatted files for use with the RDP classifier. You can also check under the [Releases](#Releases) section to see what bootstrap support cutoffs are ideal given your average query length.**
 
-```linux
-java -Xmx25g -jar /path/to/rdp_classifier_2.13/dist/classifier.jar classify -t UNITEv8.2/rRNAClassifier.properties -o outfile.txt query.fasta 
-```
-And that's it! The following steps are only needed if you are interested in the steps I took to reform QIIME formatted files for use with the RDP classifier. You can also check under the [Releases](#Releases) section to see what bootstrap support cutoffs are ideal given your average query length.
-
-## Get UNITE data and prepare it
+### Get UNITE data and prepare it
 
 1. Obtain QIIME-formatted UNITE files v8.2 from https://files.plutof.ut.ee/public/orig/98/AE/98AE96C6593FC9C52D1C46B96C2D9064291F4DBA625EF189FEC1CCAFCF4A1691.gz
 
@@ -71,7 +84,7 @@ awk 'BEGIN {FS =" "}{print $2}' sh_taxonomy_qiime_ver8_dynamic_04.02.2020.txt | 
 perl messedup_fasta_to_strict_fasta.plx < unite_dynamic.fasta > unite_dynamic.fasta.strict 
 ```
 
-## Get outgroup data and add it to the most recent UNITE data
+### Get outgroup data and add it to the most recent UNITE data
 
 1. Obtain the 2014 UNITE reference set that is currently used with the RDP classifier from https://sourceforge.net/p/rdp-classifier/activity/?page=0&limit=100#5446de6be88f3d392932f42f and unzip it and enter the directory.
 
@@ -169,7 +182,7 @@ cat unite_outgroup.txt PLANiTS_ITS_taxonomy2 > unite_PLANiTS_outgroups.txt
 perl qiime_unite_to_rdp2.plx unite_PLANiTS_outgroups.fasta unite_PLANiTS_outgroups.txt
 ```
 
-## Train and test the RDP Classifier
+### Train and test the RDP Classifier
 
 1. Now you can train the RDP classifier.
 
@@ -236,4 +249,4 @@ Nilsson RH, Larsson K-H, Taylor AFS, Bengtsson-Palme J, Jeppesen TS, Schigel D, 
 
 Wang, Q., Garrity, G. M., Tiedje, J. M., & Cole, J. R. (2007). Naive Bayesian Classifier for Rapid Assignment of rRNA Sequences into the New Bacterial Taxonomy. Applied and Environmental Microbiology, 73(16), 5261–5267. Available from https://sourceforge.net/projects/rdp-classifier/
 
-Last updated: February 10, 2021
+Last updated: March 31, 2021
