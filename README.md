@@ -24,7 +24,7 @@ wget https://sourceforge.net/projects/rdp-classifier/files/rdp-classifier/rdp_cl
 unzip rdp_classifier_2.13
 # record path to classifier.jar ex. /path/to/rdp_classifier_2.13/dist/classifier.jar
 
-############ Get the latest UNITE training set
+############ Get the latest RDP-formatted UNITE training set
 wget https://github.com/terrimporter/UNITE_ITSClassifier/releases/download/v1.1/UNITEv8.2.tar.gz
 
 # decompress it
