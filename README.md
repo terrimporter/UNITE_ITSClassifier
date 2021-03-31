@@ -9,9 +9,7 @@ This method is Perl-based.  If you prefer a python-based solution check here: ht
 ## Overview
 
 [Quick Start](#Quick-Start)  
-[Get UNITE data and prepare it](#Get-UNITE-data-and-prepare-it)   
-[Get outgroup data and add it to the most recent UNITE data](#Get-outgroup-data-and-add-it-to-the-most-recent-UNITE-data)   
-[Train and test the RDP Classifier](#Train-and-test-the-RDP-Classifier)    
+[How this dataset was prepared](#How-this-dataset-was-prepared)     
 [Releases](#Releases)  
 
 ## Quick Start
@@ -43,6 +41,7 @@ java -Xmx8g -jar /path/to/rdp_classifier_2.13/classifier.jar -t /path/to/mydata_
 
 **The following steps are only needed if you are interested in the steps I took to reform QIIME formatted files for use with the RDP classifier. You can also check under the [Releases](#Releases) section to see what bootstrap support cutoffs are ideal given your average query length.**
 
+## How this dataset was prepared
 ### Get UNITE data and prepare it
 
 1. Obtain QIIME-formatted UNITE files v8.2 from https://files.plutof.ut.ee/public/orig/98/AE/98AE96C6593FC9C52D1C46B96C2D9064291F4DBA625EF189FEC1CCAFCF4A1691.gz
