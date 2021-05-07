@@ -11,7 +11,7 @@ This method is Perl-based.  If you prefer a python-based solution check here: ht
 ## Overview
 
 [Quick Start](#Quick-Start)  
-[How to cite](#How-to-cite)
+[How to cite](#How-to-cite)  
 [How this dataset was prepared](#How-this-dataset-was-prepared)     
 [Releases](#Releases)  
 
