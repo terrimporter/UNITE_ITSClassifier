@@ -1,5 +1,7 @@
 # UNITE ITS reference set for the RDP Classifier
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4741474.svg)](https://doi.org/10.5281/zenodo.4741474)  
+
 The fungal UNITE ITS reference set has been reformatted here to work with the RDP classifier.  The current stand-alone version of the RDP classifier v2.13 is available from https://sourceforge.net/projects/rdp-classifier/ .  Though the bacterial database has been updated, it is still using a 2014 version of the UNITE ITS reference database.  Here is the method I used to convert the QIIME-formatted UNITE files for use with the stand-alone version of the RDP classifier.  It has only been tested on the QIIME formatted UNITE release v8.2 available from https://unite.ut.ee/repository.php .  It is currently trained to the species-hypothesis level.  I have also added the same microsporidian outgroup sequences from the 2014 UNITE reference set availabe from sourceforge at http://sourceforge.net/projects/rdp-classifier/files/RDP_Classifier_TrainingData/fungalits_UNITE_trainingdata_07042014.zip/download . I also added plant outgroup sequences from PLANiTS available from https://github.com/apallavicini/PLANiTS.  Leave one sequence out testing is currently in progress. 
 
 The UNITE v8.2 training files and trained files ready for use with the RDP classifier are available at https://github.com/terrimporter/QIIME_formatted_UNITE_ITS_to_RDPclassifier/releases .
@@ -9,6 +11,7 @@ This method is Perl-based.  If you prefer a python-based solution check here: ht
 ## Overview
 
 [Quick Start](#Quick-Start)  
+[How to cite](#How-to-cite)
 [How this dataset was prepared](#How-this-dataset-was-prepared)     
 [Releases](#Releases)  
 
@@ -40,6 +43,14 @@ java -Xmx8g -jar /path/to/rdp_classifier_2.13/classifier.jar -t /path/to/mydata_
 ```
 
 **The following steps are only needed if you are interested in the steps I took to reform QIIME formatted files for use with the RDP classifier. You can also check under the [Releases](#Releases) section to see what bootstrap support cutoffs are ideal given your average query length.**
+
+## How to cite
+
+You can cite this repository directly:  
+UNITE ITS Classifier, DOI: 10.5281/zenodo.4741474  
+
+Also, please cite the UNITE reference database:  
+Kõljalg, U., Abarenkov, K., Nilsson, R. H., Larsson, K.-H., & Taylor, A. F. S. (2019). The UNITE Database for Molecular Identification and for Communicating Fungal Species. Biodiversity Information Science and Standards, 3, e37402. doi: 10.3897/biss.3.37402  
 
 ## How this dataset was prepared
 ### Get UNITE data and prepare it
@@ -248,4 +259,4 @@ Nilsson RH, Larsson K-H, Taylor AFS, Bengtsson-Palme J, Jeppesen TS, Schigel D, 
 
 Wang, Q., Garrity, G. M., Tiedje, J. M., & Cole, J. R. (2007). Naive Bayesian Classifier for Rapid Assignment of rRNA Sequences into the New Bacterial Taxonomy. Applied and Environmental Microbiology, 73(16), 5261–5267. Available from https://sourceforge.net/projects/rdp-classifier/
 
-Last updated: March 31, 2021
+Last updated: May 6, 2021
