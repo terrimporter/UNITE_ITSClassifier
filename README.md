@@ -1,4 +1,4 @@
-# UNITE ITS reference set for the RDP Classifier
+# UNITE ITS Reference Set For The RDP Classifier
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4741474.svg)](https://doi.org/10.5281/zenodo.4741474)  
 
