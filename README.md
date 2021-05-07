@@ -42,8 +42,6 @@ rdp_classifier -Xmx8g classify -t /path/to/mydata_trained/rRNAClassifier.propert
 java -Xmx8g -jar /path/to/rdp_classifier_2.13/classifier.jar -t /path/to/mydata_trained/rRNAClassifier.properties -o rdp.output query.fasta
 ```
 
-**The following steps are only needed if you are interested in the steps I took to reform QIIME formatted files for use with the RDP classifier. You can also check under the [Releases](#Releases) section to see what bootstrap support cutoffs are ideal given your average query length.**
-
 ## How to cite
 
 You can cite this repository directly:  
@@ -53,6 +51,9 @@ Also, please cite the UNITE reference database:
 Kõljalg, U., Abarenkov, K., Nilsson, R. H., Larsson, K.-H., & Taylor, A. F. S. (2019). The UNITE Database for Molecular Identification and for Communicating Fungal Species. Biodiversity Information Science and Standards, 3, e37402. doi: 10.3897/biss.3.37402  
 
 ## How this dataset was prepared
+
+**The following steps are only needed if you are interested in the steps I took to reform QIIME formatted files for use with the RDP classifier. You can also check under the [Releases](#Releases) section to see what bootstrap support cutoffs are ideal given your average query length.**
+
 ### Get UNITE data and prepare it
 
 1. Obtain QIIME-formatted UNITE files v8.2 from https://files.plutof.ut.ee/public/orig/98/AE/98AE96C6593FC9C52D1C46B96C2D9064291F4DBA625EF189FEC1CCAFCF4A1691.gz
