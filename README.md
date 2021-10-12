@@ -9,8 +9,7 @@ The UNITE v8.3 training files (for reference) and trained files (ready for use w
 ## Overview
 
 [Quick Start](#Quick-Start)  
-[How to cite](#How-to-cite)  
-[How this dataset was prepared](#How-this-dataset-was-prepared)     
+[How to cite](#How-to-cite)     
 [Releases](#Releases)  
 
 ## Quick Start
