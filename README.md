@@ -26,10 +26,10 @@ unzip rdp_classifier_2.13
 # record path to classifier.jar ex. /path/to/rdp_classifier_2.13/dist/classifier.jar
 
 ############ Get the latest RDP-formatted UNITE training set
-wget https://github.com/terrimporter/UNITE_ITSClassifier/releases/download/v1.1/UNITEv8.3.tar.gz
+wget https://github.com/terrimporter/UNITE_ITSClassifier/releases/download/v2.0/mydata_trained.tar.gz 
 
 # decompress it
-tar -xzf UNITEv8.3.tar.gz
+tar -xzf mydata_trained.tar.gz
 
 # record the path to the rRNAClassifier.properties file ex. /path/to/mydata_trained/rRNAClassifier.properties
 
@@ -43,9 +43,9 @@ java -Xmx8g -jar /path/to/rdp_classifier_2.13/classifier.jar -t /path/to/mydata_
 ## How to cite
 
 You can cite this repository directly:  
-UNITE ITS Classifier, DOI: 10.5281/zenodo.4741474  
+Teresita M. Porter. (2021). terrimporter/UNITE_ITSClassifier: UNITE v2.0. Zenodo. https://doi.org/10.5281/zenodo.5565208  
 
-Also, please cite the UNITE + INSD dataset for eukaryotes:  
+Also, please cite the UNITE + INSD full dataset for eukaryotes:  
 Abarenkov, Kessy; Zirk, Allan; Piirmann, Timo; Pöhönen, Raivo; Ivanov, Filipp; Nilsson, R. Henrik; Kõljalg, Urmas (2021): Full UNITE+INSD dataset for eukaryotes. Version 10.05.2021. UNITE Community. https://doi.org/10.15156/BIO/1281567
 
 ## Releases
