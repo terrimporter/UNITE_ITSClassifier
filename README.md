@@ -4,7 +4,7 @@
 
 The fungal UNITE ITS reference set has been reformatted here to work with the RDP classifier.  The current stand-alone version of the RDP classifier v2.13 is available from https://sourceforge.net/projects/rdp-classifier/ .  Though the bacterial database has been updated, it is still using a 2014 version of the UNITE ITS reference database.  The RDP classifier was trained using the UNITE + INSD full dataset for eukaryotes release v8.3 available from https://unite.ut.ee/repository.php .  It is currently trained to the species-hypothesis level.  Suggested bootstrap support cutoffs to ensure 80% correct taxonomic assignments are shown below under Releases.
 
-The UNITE v8.3 training files (for reference) and trained files (ready for use with the RDP classifier) are available at https://github.com/terrimporter/releases .
+The UNITE v8.3 training files (for reference) and trained files (ready for use with the RDP classifier) are available at https://github.com/terrimporter/UNITE_ITSClassifier/releases .
 
 ## Overview
 
