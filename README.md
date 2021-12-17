@@ -55,7 +55,21 @@ This version is based on the UNITE + INSD full dataset for eukaryotes available 
 
 Sequences were dereplicated to avoid inflating accuracy during leave one sequence out testing.  Some taxon names were edited to manage unidentified and non-unique taxa to ensure a strictly hierarchical taxonomy.  This dataset is meant to be used to identify fungi, but since it contains many other eukaryote sequences from the INSD, may be suitable for taxonomically assigning other taxa as well.  Users can browse the taxonomy used in the training files to ensure expected taxa are present in the reference set.
 
-The leave one sequence out testing used to determine bootstrap support cutoffs are currently a work in progress...
+The leave one sequence out testing used to determine bootstrap support cutoffs are currently a work in progress but preliminary results are here...
+
+Assuming that your query sequences are present in the reference set, using these bootstrap support cutoffs should result in at least 80% correct assignments:  
+
+Rank | 200 bp | 300 bp | Full length  
+:--- | :---: | :---: | :---:    
+Kingdom | 0 |  |    
+Phylum | 0 |  |     
+Class | 0 |  |   
+Order | 0 |  |    
+Family | 0 |  |    
+Genus | 0.7 |  |      
+Species Hypothesis | NA |  |   
+
+NA = No cutoff available will result in 80% correct assignments
 
 ### v1.1
 
@@ -89,4 +103,4 @@ Nilsson RH, Larsson K-H, Taylor AFS, Bengtsson-Palme J, Jeppesen TS, Schigel D, 
 
 Wang, Q., Garrity, G. M., Tiedje, J. M., & Cole, J. R. (2007). Naive Bayesian Classifier for Rapid Assignment of rRNA Sequences into the New Bacterial Taxonomy. Applied and Environmental Microbiology, 73(16), 5261–5267. Available from https://sourceforge.net/projects/rdp-classifier/
 
-Last updated: Oct. 12, 2021
+Last updated: December 17, 2021
