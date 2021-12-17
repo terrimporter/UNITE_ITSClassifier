@@ -53,7 +53,7 @@ Abarenkov, Kessy; Zirk, Allan; Piirmann, Timo; Pöhönen, Raivo; Ivanov, Filipp;
 
 This version is based on the UNITE + INSD full dataset for eukaryotes available from https://unite.ut.ee/repository.php (Oct, 2021).  This set contains 1,393,203 unique sequences that represent 376,167 taxa (all ranks) including 352,588 species hypotheses (SHs).  This set mainly represents 157,731 unique fungal SHs; 106,154 unique plant SHs; 68,297 eukaryote 'incertae sedis' SHs; and 10,700 unique metazoan SHs.  
 
-Sequences were dereplicated to avoid inflating accuracy during leave one sequence out testing.  Some taxon names were edited to manage unidentified and non-unique taxa to ensure a strictly hierarchical taxonomy.  This dataset is meant to be used to identify fungi, but since it contains many other eukaryote sequences from the INSD, may be suitable for taxonomically assigning other taxa as well.  Users can browse the taxonomy used in the training files to ensure expected taxa are present in the reference set.
+Some taxon names were edited to manage unidentified and non-unique taxa to ensure a strictly hierarchical taxonomy.  This dataset is meant to be used to identify fungi, but does contain other eukaryote sequences from the INSD as outgroup taxa.  Users can browse the taxonomy used in the training files to ensure expected taxa are present in the reference set.
 
 The leave one sequence out testing used to determine bootstrap support cutoffs are currently a work in progress but preliminary results are here...
 
